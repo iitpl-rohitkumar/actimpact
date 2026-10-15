@@ -13,10 +13,17 @@ export default function Header() {
   const navLinks = [
     { name: "Explore Campaigns", href: "/explore" },
     { name: "About Us", href: "/about" },
-    { name: "Monthly Giving", href: "/monthly-giving" },
-    { name: "Blog", href: "/blog" },
-    { name: "Start Fundraising", href: "/fundraiser-setup" },
+    { name: "Monthly Giving", href: "#" },
+    { name: "Blog", href: "#" },
+    { name: "Start Fundraising", href: "#" },
   ];
+  // const navLinks = [
+  //   { name: "Explore Campaigns", href: "/explore" },
+  //   { name: "About Us", href: "/about" },
+  //   { name: "Monthly Giving", href: "/monthly-giving" },
+  //   { name: "Blog", href: "/blog" },
+  //   { name: "Start Fundraising", href: "/fundraiser-setup" },
+  // ];
 
   // Lock body scroll when mobile drawer is open
   useEffect(() => {
