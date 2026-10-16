@@ -16,7 +16,7 @@ export default function CampaignHero({ campaign }: CampaignHeroProps) {
       </h1>
 
       {/* Hero Media Container */}
-      <div className="relative w-full h-[260px] sm:h-[340px] md:h-[380px] rounded-[16px] overflow-hidden bg-slate-100 shadow-md">
+      <div className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] rounded-[16px] overflow-hidden bg-slate-100 shadow-xs">
         <Image
           src={campaign.image}
           alt={campaign.title}
@@ -24,18 +24,6 @@ export default function CampaignHero({ campaign }: CampaignHeroProps) {
           priority
           className="object-cover object-center"
         />
-
-        {/* Top Badges */}
-        <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 z-10">
-          <span className="bg-[#10B981] text-white font-sans font-semibold text-[12px] px-3 py-1 rounded-[6px] flex items-center gap-1 shadow-sm">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            Verified NGO
-          </span>
-          <span className="bg-[#FF5523] text-white font-sans font-semibold text-[12px] px-3 py-1 rounded-[6px] flex items-center gap-1 shadow-sm">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            80G Tax Benefits
-          </span>
-        </div>
       </div>
     </div>
   );

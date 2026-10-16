@@ -42,51 +42,67 @@ export default function MonthlyBenefitsSection() {
   ];
 
   return (
-    <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-14 sm:py-20" id="plans">
-      {/* Header */}
-      <div className="flex flex-col items-center text-center max-w-[886px] mx-auto mb-12 sm:mb-16">
-        <div className="inline-flex items-center px-3.5 py-1.5 rounded-[4px] bg-[#20C997]/12 border border-[#20C997] mb-4">
-          <span className="font-sans font-medium text-[13px] sm:text-[14px] text-[#20C997] tracking-wider uppercase">
-            OUR CORE BELIEFS
-          </span>
+    <section
+      id="plans"
+      className="w-full py-16 sm:py-24"
+      style={{
+        background: "linear-gradient(180deg, #F3FCF9 0%, #FFFFFF 100%)",
+      }}
+    >
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+        {/* Header matching AboutCoreBeliefsSection design */}
+        <div className="flex flex-col items-start text-left mb-10 sm:mb-14">
+          <div className="pb-1 border-b border-[#20C997] mb-3">
+            <span className="font-sans font-medium text-[13px] sm:text-[14px] text-[#20C997] tracking-wider uppercase">
+              OUR CORE BELIEFS
+            </span>
+          </div>
+
+          <h2 className="font-serif font-bold text-[28px] sm:text-[34px] lg:text-[36px] text-[#454545] leading-tight max-w-4xl">
+            Why Subscribe to Act Impact&apos;s Monthly Giving Program?
+          </h2>
         </div>
 
-        <h2 className="font-serif font-bold text-[28px] sm:text-[34px] lg:text-[36px] text-[#454545] leading-tight">
-          Why Subscribe to Act Impact&apos;s Monthly Giving Program?
-        </h2>
-      </div>
+        {/* 6 Feature Cards Grid matching card styling and alternate corner treatments */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            const isAlternate = index % 2 === 1;
 
-      {/* 6 Feature Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-        {benefits.map((benefit) => {
-          const Icon = benefit.icon;
-          return (
-            <div
-              key={benefit.title}
-              className="bg-white border border-[#E2E8F0] rounded-[12px] p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow relative overflow-hidden group"
-            >
-              {/* Subtle decorative background tint */}
-              <div className="absolute top-0 right-0 w-36 h-36 bg-[#F3FCF9] rounded-bl-full -z-0 opacity-60 group-hover:scale-110 transition-transform duration-300" />
+            return (
+              <div
+                key={benefit.title}
+                className="bg-white p-6 sm:p-7 flex flex-col border border-[#E2E8F0] shadow-[0px_8px_16px_0px_#00000005] rounded-[16px] transition-shadow relative overflow-hidden group"
+              >
+                {/* Internal green curved background - mirrored / flipped on alternate cards */}
+                <div
+                  className={`absolute inset-[10px] bg-[#F3FCF9] pointer-events-none transition-transform duration-300 group-hover:scale-[1.02] ${
+                    isAlternate
+                      ? "rounded-tr-[130px] rounded-bl-[110px] rounded-tl-[14px] rounded-br-[14px]"
+                      : "rounded-tl-[130px] rounded-br-[110px] rounded-tr-[14px] rounded-bl-[14px]"
+                  }`}
+                />
 
-              <div className="relative z-10">
-                {/* Icon Box */}
-                <div className="w-12 h-12 rounded-[8px] bg-[#E4F8F2] flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-[#20C997]" />
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Icon Box: Smooth mint squircle */}
+                  <div className="w-[46px] h-[46px] rounded-[12px] bg-[#DCF5EB] flex items-center justify-center mb-6 shrink-0">
+                    <Icon className="w-5 h-5 text-[#00A86B] stroke-[1.9]" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-serif font-bold text-[20px] text-[#0A3B49] mb-4 tracking-[-0.01em] leading-snug">
+                    {benefit.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="font-sans font-normal text-[15px] text-[#4B5563] leading-[1.6]">
+                    {benefit.description}
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-serif font-bold text-[19px] sm:text-[20px] text-[#093545] mb-3 leading-snug">
-                  {benefit.title}
-                </h3>
-
-                {/* Description */}
-                <p className="font-sans font-normal text-[14px] sm:text-[15px] text-[#454545] leading-relaxed">
-                  {benefit.description}
-                </p>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

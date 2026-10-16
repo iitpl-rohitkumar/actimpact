@@ -81,6 +81,25 @@ export default function ExploreGridSection() {
     return () => window.removeEventListener("mouseup", handleGlobalMouseUp);
   }, []);
 
+  // Category tabs hover scroll: page scroll ko block karke horizontal scroll karna
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   const categories = [
     { name: "All", icon: Filter },
     { name: "Urgent", icon: AlertCircle },
@@ -218,7 +237,7 @@ export default function ExploreGridSection() {
         </div>
       </div>
 
-      {/* Category Tabs Bar (Edge-to-Edge indicator, Hidden scrollbars & Right-Click Drag) */}
+      {/* Category Tabs Bar (Edge-to-Edge indicator, Hidden scrollbars, Wheel Scroll & Right-Click Drag) */}
       <div
         ref={scrollRef}
         onMouseDown={handleMouseDown}
@@ -226,7 +245,7 @@ export default function ExploreGridSection() {
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
         onContextMenu={handleContextMenu}
-        className={`w-full border-b border-[#EBEBEF] mb-10 overflow-x-auto select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
+        className={`w-full border-b border-[#EBEBEF] mb-10 overflow-x-auto select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overscroll-contain ${
           isDragging ? "cursor-grabbing" : "cursor-default"
         }`}
       >

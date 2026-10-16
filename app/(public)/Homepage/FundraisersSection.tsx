@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -27,6 +27,26 @@ import {
 
 export default function FundraisersSection() {
   const [activeCategory, setActiveCategory] = useState("Elderly");
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+
+  // Mouse wheel hover scroll: page scroll ko rok kar horizontal scroll karega
+  useEffect(() => {
+    const el = categoryScrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   const categories = [
     { name: "Urgent", icon: AlertCircle },
@@ -121,8 +141,11 @@ export default function FundraisersSection() {
             Campaigns That Need Your Support
           </h2>
         </div>
-        {/* Category Pills Bar (Horizontal Scrollable) */}
-        <div className="w-full border-b border-[#EBEBEF] mb-10 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {/* Category Pills Bar (Horizontal Scrollable with wheel listener) */}
+        <div
+          ref={categoryScrollRef}
+          className="w-full border-b border-[#EBEBEF] mb-10 overflow-x-auto select-none overscroll-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
           <div className="flex items-end min-w-max">
             {categories.map((cat) => {
               const Icon = cat.icon;
@@ -131,6 +154,7 @@ export default function FundraisersSection() {
               return (
                 <button
                   key={cat.name}
+                  type="button"
                   onClick={() => setActiveCategory(cat.name)}
                   className={`relative flex flex-col items-center justify-center pt-3 pb-3 px-6 sm:px-7 cursor-pointer whitespace-nowrap transition-colors select-none ${
                     isActive

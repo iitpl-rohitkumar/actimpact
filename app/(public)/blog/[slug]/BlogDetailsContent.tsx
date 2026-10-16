@@ -3,7 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Share2, Heart, ShieldCheck, Check } from "lucide-react";
-import { FacebookIcon, WhatsAppIcon, LinkedInIcon } from "@/components/ui/SocialIcons";
+import {
+  FacebookIcon,
+  WhatsAppIcon,
+  LinkedInIcon,
+} from "@/components/ui/SocialIcons";
 import { BlogPost } from "../blogData";
 
 interface BlogDetailsContentProps {
@@ -16,10 +20,12 @@ export default function BlogDetailsContent({ post }: BlogDetailsContentProps) {
 
   const handleShare = () => {
     if (typeof navigator !== "undefined" && navigator.share) {
-      navigator.share({
-        title: post.title,
-        url: typeof window !== "undefined" ? window.location.href : "",
-      }).catch(() => {});
+      navigator
+        .share({
+          title: post.title,
+          url: typeof window !== "undefined" ? window.location.href : "",
+        })
+        .catch(() => {});
     } else {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -57,7 +63,9 @@ export default function BlogDetailsContent({ post }: BlogDetailsContentProps) {
           {/* Pull Quote Box */}
           <div className="border-l-4 border-[#FF5523] pl-6 py-4 my-4 bg-[#FF5523]/5 rounded-r-[12px]">
             <p className="font-serif italic text-[18px] sm:text-[20px] text-[#1E293B] leading-relaxed">
-              &ldquo;No parent should ever have to watch their child be denied knowledge or healthcare simply because their village was born without digital infrastructure.&rdquo;
+              &ldquo;No parent should ever have to watch their child be denied
+              knowledge or healthcare simply because their village was born
+              without digital infrastructure.&rdquo;
             </p>
             <span className="block font-sans font-semibold text-[13px] text-[#FF5523] mt-2 tracking-wide uppercase">
               — Kameshwar Yadav, Community Founder
@@ -112,14 +120,16 @@ export default function BlogDetailsContent({ post }: BlogDetailsContentProps) {
         </article>
 
         {/* Right Column: Sidebar Table of Contents / Guide (4 cols on lg) */}
-        <aside className="lg:col-span-4 flex flex-col gap-6 sticky top-28">
+        <aside className="lg:col-span-4 flex flex-col gap-6 sticky top-30">
           {/* Table of Contents Card (Frame 51 in Figma) */}
-          <div className="bg-white border border-[#E2E8F0] rounded-[16px] p-6 shadow-xs">
-            <h3 className="font-serif font-semibold text-[19px] sm:text-[20px] text-[#454545] pb-3 border-b border-slate-100 mb-4">
+          <div className="bg-transparent p-0">
+            {/* Title */}
+            <h3 className="font-serif font-bold text-[22px] sm:text-[24px] text-[#424242] mb-6">
               Living with Gaucher
             </h3>
 
-            <div className="flex flex-col gap-2">
+            {/* Table of Contents List */}
+            <div className="flex flex-col gap-6">
               {post.toc.map((item, idx) => {
                 const isActive = activeToc === idx;
                 return (
@@ -127,12 +137,16 @@ export default function BlogDetailsContent({ post }: BlogDetailsContentProps) {
                     key={idx}
                     type="button"
                     onClick={() => setActiveToc(idx)}
-                    className={`w-full text-left p-3 rounded-[8px] transition-all cursor-pointer font-sans text-[15px] ${
+                    className={`relative w-full text-left transition-colors cursor-pointer font-sans text-[16px] pl-5 leading-normal ${
                       isActive
-                        ? "border border-[#FF5523] text-[#FF5523] font-bold bg-[#FF5523]/5"
-                        : "text-[#454545] font-normal hover:bg-slate-50"
+                        ? "text-[#FF5523] font-bold"
+                        : "text-[#555555] font-normal hover:text-[#1F1F1F]"
                     }`}
                   >
+                    {/* Active Left Vertical Indicator Bar */}
+                    {isActive && (
+                      <span className="absolute left-0 top-0.5 bottom-0.5 w-[3.5px] rounded-full bg-[#FF5523]" />
+                    )}
                     {item}
                   </button>
                 );
@@ -149,7 +163,8 @@ export default function BlogDetailsContent({ post }: BlogDetailsContentProps) {
               </span>
             </div>
             <p className="font-sans font-normal text-[14px] text-[#475569] leading-relaxed mb-4">
-              Every story and campaign on ActImpact undergoes clinical cross-checks and direct vendor audits before publication.
+              Every story and campaign on ActImpact undergoes clinical
+              cross-checks and direct vendor audits before publication.
             </p>
             <div className="flex flex-col gap-2 font-sans text-[13px] text-[#1E293B]">
               <div className="flex items-center gap-2">

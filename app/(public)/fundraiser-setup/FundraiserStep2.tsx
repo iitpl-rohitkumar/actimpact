@@ -1,7 +1,13 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  CheckCircle2,
+  ArrowRight,
+  Clock,
+  ShieldCheck,
+} from "lucide-react";
+import CustomDropdown from "@/components/ui/CustomDropdown";
 
 interface Step2Props {
   beneficiaryName: string;
@@ -35,164 +41,179 @@ export default function FundraiserStep2({
   setDuration,
   consent,
   setConsent,
-  onBack,
   onNext,
 }: Step2Props) {
   const quickAmounts = ["5,00,000", "10,00,000", "12,00,000", "20,00,000"];
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-[16px] p-6 sm:p-8 shadow-xs flex flex-col gap-8">
-      <div>
-        <h2 className="font-serif font-bold text-[18px] sm:text-[20px] text-[#1E1E1E]">
-          Basic Details &amp; Target Goal
-        </h2>
-        <p className="font-sans text-[13px] text-[#6B7280] mt-1">
-          Setting an accurate goal speeds up verification and donor confidence.
-        </p>
-      </div>
+    <div className="bg-white border border-[#E2E8F0] rounded-[16px] p-6 sm:p-8 shadow-xs flex flex-col gap-6">
+      <h2 className="font-serif font-bold text-[18px] sm:text-[20px] text-[#1E1E1E]">
+        Basic Detail&apos;s Meera&apos;s
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {/* Row 1: Beneficiary's full name & Email ID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Full Name */}
+        <div className="flex flex-col gap-1.5">
+          <label className="font-sans font-semibold text-[13px] text-[#292925]">
+            Beneficiary&apos;s full name
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              readOnly
+              value={beneficiaryName || "Meera Sharma"}
+              className="w-full bg-white border border-slate-200 rounded-[8px] pl-3.5 pr-9 py-2.5 font-sans text-[13.5px] text-slate-800 focus:outline-none focus:border-[#FF5523] transition-colors"
+            />
+            <CheckCircle2 className="w-4 h-4 text-[#00AE5B] absolute right-3 top-1/2 -translate-y-1/2" />
+          </div>
+        </div>
+
         {/* Email ID */}
         <div className="flex flex-col gap-1.5">
           <label className="font-sans font-semibold text-[13px] text-[#292925]">
-            Organizer / Contact Email *
-          </label>
-          <input
-            type="email"
-            required
-            placeholder="organizer@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-[10px] px-4 py-2.5 font-sans text-[14px] text-slate-800 focus:outline-hidden focus:border-[#FF5523]"
-          />
-        </div>
-
-        {/* Current City */}
-        <div className="flex flex-col gap-1.5">
-          <label className="font-sans font-semibold text-[13px] text-[#292925]">
-            Current Residential City *
-          </label>
-          <input
-            type="text"
-            required
-            placeholder="e.g. Pune, Maharashtra"
-            value={currentCity}
-            onChange={(e) => setCurrentCity(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-[10px] px-4 py-2.5 font-sans text-[14px] text-slate-800 focus:outline-hidden focus:border-[#FF5523]"
-          />
-        </div>
-
-        {/* Preferred Language */}
-        <div className="flex flex-col gap-1.5 sm:col-span-2">
-          <label className="font-sans font-semibold text-[13px] text-[#292925]">
-            Preferred Communication Language *
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. English & Hindi"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-[10px] px-4 py-2.5 font-sans text-[14px] text-slate-800 focus:outline-hidden focus:border-[#FF5523]"
-          />
-        </div>
-
-        {/* Target Amount */}
-        <div className="flex flex-col gap-2 sm:col-span-2 pt-2 border-t border-slate-100">
-          <label className="font-sans font-semibold text-[13px] text-[#292925]">
-            Target Amount Needed *
+            Email ID
           </label>
           <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-sans font-bold text-[18px] text-[#1E1E1E]">
-              ₹
-            </span>
             <input
               type="text"
-              required
-              placeholder="12,00,000"
-              value={targetAmount}
-              onChange={(e) => setTargetAmount(e.target.value)}
-              className="w-full pl-8 pr-4 py-3 rounded-[10px] bg-slate-50 border border-slate-200 font-sans font-bold text-[18px] text-slate-900 focus:outline-hidden focus:border-[#FF5523]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Mumbai, Maharashtra"
+              className="w-full bg-white border border-slate-200 rounded-[8px] pl-3.5 pr-9 py-2.5 font-sans text-[13.5px] text-slate-800 focus:outline-none focus:border-[#FF5523] transition-colors"
             />
+            <CheckCircle2 className="w-4 h-4 text-[#00AE5B] absolute right-3 top-1/2 -translate-y-1/2" />
           </div>
-          <span className="font-sans text-[12px] text-[#6B7280]">
-            Within the typical verified range for medical/relief treatments.
-          </span>
-
-          {/* Quick Amount Chips */}
-          <div className="flex items-center gap-2 mt-2">
-            <span className="font-sans text-[12px] text-slate-500 shrink-0">
-              Quick amounts:
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {quickAmounts.map((amt) => (
-                <button
-                  key={amt}
-                  type="button"
-                  onClick={() => setTargetAmount(amt)}
-                  className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-sans text-[12px] font-semibold px-3 py-1 rounded-[6px] transition-colors cursor-pointer"
-                >
-                  ₹{amt}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Ideal Campaign Duration */}
-        <div className="flex flex-col gap-1.5 sm:col-span-2 pt-2 border-t border-slate-100">
-          <label className="font-sans font-semibold text-[13px] text-[#292925]">
-            Ideal Campaign Duration *
-          </label>
-          <select
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-[10px] px-4 py-2.5 font-sans text-[14px] text-slate-800 focus:outline-hidden focus:border-[#FF5523]"
-          >
-            <option value="30 days">30 days (High urgency)</option>
-            <option value="45 days">45 days (Recommended)</option>
-            <option value="60 days">60 days (Extended treatment)</option>
-            <option value="90 days">90 days (Long term support)</option>
-          </select>
-          <span className="font-sans text-[12px] text-[#6B7280]">
-            Most urgent medical and emergency campaigns run for 30–60 days.
-          </span>
-        </div>
-
-        {/* Consent Confirmation Checkbox */}
-        <div className="sm:col-span-2 pt-2 border-t border-slate-100">
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              required
-              checked={consent}
-              onChange={(e) => setConsent(e.target.checked)}
-              className="mt-1 w-4 h-4 rounded text-[#FF5523] focus:ring-[#FF5523] border-slate-300"
-            />
-            <span className="font-sans text-[13px] text-[#475569] leading-relaxed">
-              I confirm that I have {beneficiaryName || "the beneficiary"}&apos;s or legal guardian&apos;s permission to create this fundraiser and submit supporting documents for verification.
-            </span>
-          </label>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={onBack}
-          className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-sans font-semibold text-[14px] px-6 py-2.5 rounded-[24px] flex items-center gap-2 cursor-pointer transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
+      {/* Row 2: Current city & Preferred language Custom Dropdown */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Current city */}
+        <div className="flex flex-col gap-1.5">
+          <label className="font-sans font-semibold text-[13px] text-[#292925]">
+            Current city
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              value={currentCity}
+              onChange={(e) => setCurrentCity(e.target.value)}
+              placeholder="Pune, Maharashtra"
+              className="w-full bg-white border border-slate-200 rounded-[8px] pl-3.5 pr-9 py-2.5 font-sans text-[13.5px] text-slate-800 focus:outline-none focus:border-[#FF5523] transition-colors"
+            />
+            <CheckCircle2 className="w-4 h-4 text-[#00AE5B] absolute right-3 top-1/2 -translate-y-1/2" />
+          </div>
+        </div>
 
+        {/* Preferred language Custom Dropdown */}
+        <div className="flex flex-col gap-1.5">
+          <label className="font-sans font-semibold text-[13px] text-[#292925]">
+            Preferred language
+          </label>
+          <CustomDropdown
+            value={language}
+            onChange={setLanguage}
+            options={["English & Hindi", "Hindi", "Marathi", "English"]}
+          />
+        </div>
+      </div>
+
+      {/* Row 3: Target amount & Ideal campaign duration Custom Dropdown */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Target Amount */}
+        <div className="flex flex-col gap-1.5">
+          <label className="font-sans font-semibold text-[13px] text-[#292925]">
+            Target amount
+          </label>
+          <div className="relative">
+            <div className="w-full bg-white border border-slate-200 rounded-[8px] px-3.5 py-2.5 flex items-center gap-2 focus-within:border-[#FF5523] transition-colors">
+              <span className="font-sans font-bold text-[14px] text-slate-700">
+                ₹
+              </span>
+              <input
+                type="text"
+                value={targetAmount}
+                onChange={(e) => setTargetAmount(e.target.value)}
+                placeholder="12,00,000"
+                className="w-full bg-transparent font-sans text-[13.5px] text-slate-800 focus:outline-none pr-6"
+              />
+            </div>
+            <CheckCircle2 className="w-4 h-4 text-[#00AE5B] absolute right-3 top-1/2 -translate-y-1/2" />
+          </div>
+          <span className="text-[12px] font-sans text-[#00AE5B] flex items-center gap-1 mt-0.5">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Within the typical verified range for oncology treatment in Mumbai.</span>
+          </span>
+        </div>
+
+        {/* Ideal campaign duration Custom Dropdown */}
+        <div className="flex flex-col gap-1.5">
+          <label className="font-sans font-semibold text-[13px] text-[#292925]">
+            Ideal campaign duration
+          </label>
+          <CustomDropdown
+            value={duration}
+            onChange={setDuration}
+            options={["45 days", "30 days", "60 days", "90 days"]}
+          />
+          <span className="text-[12px] font-sans text-[#00AE5B] flex items-center gap-1 mt-0.5">
+            <Clock className="w-3.5 h-3.5" />
+            <span>Most urgent medical campaigns run for 30-60 days.</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Row 4: Quick amounts */}
+      <div className="flex items-center flex-wrap gap-2 pt-1">
+        <span className="font-sans text-[12.5px] text-slate-600 mr-1">
+          Quick amounts:
+        </span>
+        {quickAmounts.map((amt) => {
+          const isSelected = targetAmount === amt;
+          return (
+            <button
+              key={amt}
+              type="button"
+              onClick={() => setTargetAmount(amt)}
+              className={`px-3 py-1 rounded-[6px] font-sans font-medium text-[12px] border transition-all cursor-pointer ${
+                isSelected
+                  ? "bg-white text-[#FF5523] border-[#FF5523] shadow-xs"
+                  : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"
+              }`}
+            >
+              ₹{amt}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Permission Checkbox in grey card */}
+      <div className="bg-slate-50 border border-slate-100 rounded-[8px] p-3 flex items-start gap-2.5 mt-2">
+        <input
+          type="checkbox"
+          id="consent-check"
+          checked={consent}
+          onChange={(e) => setConsent(e.target.checked)}
+          className="mt-0.5 w-4 h-4 rounded text-[#00AE5B] accent-[#00AE5B] cursor-pointer"
+        />
+        <label
+          htmlFor="consent-check"
+          className="font-sans text-[12px] text-[#475569] leading-snug cursor-pointer select-none"
+        >
+          I confirm that I have Meera&apos;s or her legal guardian&apos;s permission to create this fundraiser and submit supporting documents for verification.
+        </label>
+      </div>
+
+      {/* Right aligned Continue Button */}
+      <div className="flex justify-end pt-2">
         <button
           type="button"
           onClick={onNext}
-          className="bg-[#FF5523] hover:bg-[#e04515] active:scale-98 transition-all text-white font-sans font-bold text-[15px] px-8 py-3 rounded-[24px] flex items-center gap-2 shadow-xs cursor-pointer"
+          className="bg-[#FF5523] hover:bg-[#e04515] active:scale-98 transition-all text-white font-sans font-bold text-[14px] py-2.5 px-8 rounded-[8px] shadow-sm flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span>Continue to Document Upload</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>Continue</span>
+          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </button>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
-import WebsiteLayout from "@/components/layout/WebsiteLayout";
+import Footer from "@/components/layout/Footer";
 import FundraiserHeader from "./FundraiserHeader";
 import FundraiserStep1 from "./FundraiserStep1";
 import FundraiserStep2 from "./FundraiserStep2";
@@ -19,21 +19,18 @@ export default function FundraiserSetupPage() {
   const [beneficiary, setBeneficiary] = useState("Family member");
   const [beneficiaryName, setBeneficiaryName] = useState("Meera Sharma");
   const [city, setCity] = useState("Mumbai, Maharashtra");
-  const [phone, setPhone] = useState("9876543210");
+  const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("124578");
 
-  const [email, setEmail] = useState("sharma.family@gmail.com");
+  const [email, setEmail] = useState("Mumbai, Maharashtra");
   const [currentCity, setCurrentCity] = useState("Pune, Maharashtra");
   const [language, setLanguage] = useState("English & Hindi");
   const [targetAmount, setTargetAmount] = useState("12,00,000");
   const [duration, setDuration] = useState("45 days");
   const [consent, setConsent] = useState(true);
 
-  const [docType, setDocType] = useState("Estimation Letter");
-  const [files, setFiles] = useState<string[]>([
-    "Hospital_Estimate_TataMemorial.pdf",
-    "Patient_Aadhaar_Verification.pdf",
-  ]);
+  const [docType, setDocType] = useState("Medical Bill");
+  const [files, setFiles] = useState<string[]>([]);
 
   const handleSubmit = () => {
     setSubmitted(true);
@@ -41,8 +38,10 @@ export default function FundraiserSetupPage() {
 
   if (submitted) {
     return (
-      <WebsiteLayout>
-        <div className="w-full max-w-[720px] mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center flex flex-col items-center">
+      <div className="min-h-screen flex flex-col bg-white">
+        <FundraiserHeader currentStep={3} setStep={setCurrentStep} />
+
+        <div className="flex-1 w-full max-w-[720px] mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center flex flex-col items-center">
           <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-[#00AE5B] mb-4">
             <CheckCircle2 className="w-10 h-10" />
           </div>
@@ -56,7 +55,7 @@ export default function FundraiserSetupPage() {
           </h1>
 
           <p className="font-sans text-[15px] sm:text-[16px] text-[#475569] mt-3 leading-relaxed max-w-[560px]">
-            Thank you! Our trust &amp; safety team has received the estimation slips for{" "}
+            Thank you! Our trust &amp; safety team has received the documentation for{" "}
             <strong className="text-slate-900">{beneficiaryName}</strong>. You will receive an SMS and WhatsApp notification once verification is complete (typically under 6 hours).
           </p>
 
@@ -77,18 +76,20 @@ export default function FundraiserSetupPage() {
             </Link>
           </div>
         </div>
-      </WebsiteLayout>
+
+        <Footer />
+      </div>
     );
   }
 
   return (
-    <WebsiteLayout>
+    <div className="min-h-screen flex flex-col bg-[#FBFBFA]">
       <FundraiserHeader currentStep={currentStep} setStep={setCurrentStep} />
 
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Main Wizard Form Area (8 cols on lg) */}
-          <div className="lg:col-span-8">
+          {/* Main Wizard Form Area (approx 7.5 cols on lg) */}
+          <div className="lg:col-span-7 xl:col-span-8">
             {currentStep === 1 && (
               <FundraiserStep1
                 purpose={purpose}
@@ -139,9 +140,10 @@ export default function FundraiserSetupPage() {
             )}
           </div>
 
-          {/* Right Column: Live Summary Sidebar (4 cols on lg) */}
-          <div className="lg:col-span-4">
+          {/* Right Column: Live Summary Sidebar (approx 4.5 cols on lg) */}
+          <div className="lg:col-span-5 xl:col-span-4">
             <FundraiserSummarySidebar
+              currentStep={currentStep}
               purpose={purpose}
               beneficiary={beneficiary}
               beneficiaryName={beneficiaryName}
@@ -152,7 +154,9 @@ export default function FundraiserSetupPage() {
             />
           </div>
         </div>
-      </div>
-    </WebsiteLayout>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

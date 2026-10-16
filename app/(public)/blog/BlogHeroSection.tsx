@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function BlogHeroSection() {
   return (
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-4">
-      <div className="relative w-full min-h-[420px] sm:min-h-[460px] rounded-[20px] overflow-hidden flex items-center p-6 sm:p-12 lg:p-16 shadow-lg">
+      <div className="relative w-full min-h-[420px] sm:min-h-[460px] rounded-[20px] overflow-hidden flex items-center justify-center p-6 sm:p-12 lg:p-16 shadow-lg">
         {/* Background Image */}
         <Image
           src="/images/hero-section_8a982c6b.png"
@@ -15,10 +15,10 @@ export default function BlogHeroSection() {
         />
 
         {/* Gradient Overlay for Text Legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-transparent" />
+        <div className="absolute inset-0 bg-[#00000063]" />
 
         {/* Content Container */}
-        <div className="relative z-10 max-w-[806px] text-white flex flex-col justify-center">
+        <div className="relative z-10 max-w-[806px] text-white text-center flex flex-col justify-center">
           <span className="font-sans font-bold text-[14px] sm:text-[16px] text-[#FF5523] uppercase tracking-wider block">
             Stories of Impact, Hope &amp; Giving
           </span>

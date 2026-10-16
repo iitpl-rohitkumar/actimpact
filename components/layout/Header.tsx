@@ -10,22 +10,22 @@ export default function Header() {
   const [mobileMenuPath, setMobileMenuPath] = useState<string | null>(null);
   const mobileMenuOpen = mobileMenuPath === pathname;
 
-  const navLinks = [
-    { name: "Explore Campaigns", href: "/explore" },
-    { name: "About Us", href: "/about" },
-    { name: "Monthly Giving", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Start Fundraising", href: "#" },
-  ];
   // const navLinks = [
   //   { name: "Explore Campaigns", href: "/explore" },
   //   { name: "About Us", href: "/about" },
-  //   { name: "Monthly Giving", href: "/monthly-giving" },
-  //   { name: "Blog", href: "/blog" },
-  //   { name: "Start Fundraising", href: "/fundraiser-setup" },
+  //   { name: "Monthly Giving", href: "#" },
+  //   { name: "Blog", href: "#" },
+  //   { name: "Start Fundraising", href: "#" },
   // ];
+  const navLinks = [
+    { name: "Explore Campaigns", href: "/explore" },
+    { name: "About Us", href: "/about" },
+    { name: "Monthly Giving", href: "/monthly-giving" },
+    { name: "Blog", href: "/blog" },
+    { name: "Start Fundraising", href: "/fundraiser-setup" },
+  ];
 
-  // Lock body scroll when mobile drawer is open
+
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -100,7 +100,7 @@ export default function Header() {
                     href={link.href}
                     className={
                       active
-                        ? "bg-[#FF5523]/10 border border-[#FF5523] rounded-full px-4 py-1.5 font-serif font-medium text-[14px] text-[#FF5523] transition-all"
+                        ? "bg-[#FF5523]/10  rounded-full px-4 py-1.5 font-serif font-medium text-[14px] text-[#FF5523] transition-all"
                         : "font-serif font-medium text-[14px] text-[#1E293B] hover:text-[#FF5523] transition-colors"
                     }
                   >
